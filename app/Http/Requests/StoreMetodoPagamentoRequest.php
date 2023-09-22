@@ -11,7 +11,7 @@ class StoreMetodoPagamentoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreMetodoPagamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'cartao' => 'min:2|required',
+            'pix' => 'min:2|required',
+            'boleto' => 'min:2|required',
         ];
     }
 }

@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Models\Bairro;
@@ -13,15 +12,11 @@ class BairroController extends Controller
      */
     public function index()
     {
-        //
-    }
+        //Pegar a lista do banco
+        $bairros = Bairro::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        //Retornar lista em formato json
+        return response()->json(['data' => $bairros]);
     }
 
     /**
@@ -29,38 +24,65 @@ class BairroController extends Controller
      */
     public function store(StoreBairroRequest $request)
     {
-        //
+        // Crie um novo Tipo
+        $bairro = Bairro::create($request->all());
+
+        // Retorne o codigo 201
+        return response()->json($bairro, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Bairro $bairro)
+    public function show($id)
     {
-        //
+        // procure tipo por id
+        $bairro = Bairro::find($id);
+
+        if (!$bairro) {
+            return response()->json(['message' => 'Bairro não encontrado'], 404);
+        }
+
+        return response()->json($bairro);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Bairro $bairro)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateBairroRequest $request, Bairro $bairro)
+    public function update(UpdateBairroRequest $request, $id)
     {
-        //
+        // Procure o tipo pela id
+        $bairro = Bairro::find($id);
+
+        if (!$bairro) {
+            return response()->json(['message' => 'Bairro não encontrado'], 404);
+        }
+
+        // Faça o update do tipo
+        $bairro->update($request->all());
+
+        // Retorne o tipo
+        return response()->json($bairro);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Bairro $bairro)
+    public function destroy($id)
     {
-        //
+       // Encontre um tipo pelo ID
+       $bairro = Bairro::find($id);
+
+       if (!$bairro) {
+           return response()->json(['message' => 'Bairro não encontrado!'], 404);
+       }  
+
+       //Se tiver dependentes deve retornar erro
+ 
+       // Delete the brand
+       $bairro->delete();
+
+       return response()->json(['message' => 'Bairro deletado com sucesso!'], 200);
     }
 }

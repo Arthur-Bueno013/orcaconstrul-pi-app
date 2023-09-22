@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\BairroController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -14,4 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+Route::middleware('api')->prefix('bairros')->group(function () {
+    Route::get('/', [BairroController::class, 'index']);
+    Route::post('/', [BairroController::class, 'store']);
+    Route::get('/{bairro}', [BairroController::class, 'show']);
+    Route::put('/{bairro}', [BairroController::class, 'update']);
+    Route::delete('/{bairro}', [BairroController::class, 'destroy']);
+});
