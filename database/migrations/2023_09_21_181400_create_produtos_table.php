@@ -11,10 +11,23 @@ return new class extends Migration
      */
     public function up(): void
     {
+        Schema::disableForeignKeyConstraints();
+
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->bigInteger('detalhe_id');
+            $table->foreign('detalhe_id')->references('id')->on('detalhes_pedido');
+            $table->lineString('name');
+            $table->integer('preço');
+            $table->lineString('descrição');
+            $table->integer('estoque');
+            $table->bigInteger('medida_id');
+            $table->foreign('medida_id')->references('id')->on('unidade_medida');
+            $table->index('name');
+            $table->index('descrição');
         });
+
+        Schema::enableForeignKeyConstraints();
     }
 
     /**
