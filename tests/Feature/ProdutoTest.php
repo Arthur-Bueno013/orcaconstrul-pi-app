@@ -2,12 +2,10 @@
 
 namespace Tests\Feature;
 
-
-
-use App\Models\UnidadeMedida;
+use App\Models\Produto;
+use App\Models\Tipo;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Produto;
 use Tests\TestCase;
 
 class ProdutoTest extends TestCase
@@ -41,7 +39,7 @@ class ProdutoTest extends TestCase
     {
 
         // Criar um tipo usando o factory
-        $tipo = UnidadeMedida::factory()->create();
+        $tipo = Tipo::factory()->create();
 
         //Criar o objeto
         $data = [
@@ -202,7 +200,7 @@ class ProdutoTest extends TestCase
     {
 
         // Criar um tipo usando o factory
-        $tipo = UnidadeMedida::factory()->create();
+        $tipo = Tipo::factory()->create();
 
 
         // Dados para update

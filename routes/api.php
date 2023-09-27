@@ -41,5 +41,3 @@ Route::middleware('api')->prefix('produtos')->group(function () {
     Route::put('/{produto}', [ProdutoController::class, 'update']);
     Route::delete('/{produto}', [ProdutoController::class, 'destroy']);
 });
-
-

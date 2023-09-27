@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Produto;
-use App\Http\Requests\StoreProdutoRequest;
-use App\Http\Requests\UpdateProdutoRequest;
+use App\Models\Tipo;
+use App\Http\Requests\StoreTipoRequest;
+use App\Http\Requests\UpdateTipoRequest;
 
-class ProdutoController extends Controller
+class TipoController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,22 +14,23 @@ class ProdutoController extends Controller
     public function index()
     {
         //Pegar a lista do banco
-        $produtos = Produto::all();
+        $tipos = Tipo::all();
 
         //Retornar lista em formato json
-        return response()->json(['data' => $produtos]);
+        return response()->json(['data' => $tipos]);
     }
+
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreProdutoRequest $request)
+    public function store(StoreTipoRequest $request)
     {
         // Crie um novo Tipo
-        $produto = Produto::create($request->all());
+        $tipo = Tipo::create($request->all());
 
         // Retorne o codigo 201
-        return response()->json($produto, 201);
+        return response()->json($tipo, 201);
     }
 
     /**
@@ -38,33 +39,33 @@ class ProdutoController extends Controller
     public function show($id)
     {
         // procure tipo por id
-        $produto = Produto::find($id);
+        $tipo = Tipo::find($id);
 
-        if (!$produto) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
+        if (!$tipo) {
+            return response()->json(['message' => 'Tipo não encontrado'], 404);
         }
 
-        return response()->json($produto);
+        return response()->json($tipo);
     }
 
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProdutoRequest $request, $id)
+    public function update(UpdateTipoRequest $request, $id)
     {
         // Procure o tipo pela id
-        $produto = Produto::find($id);
+        $tipo = Tipo::find($id);
 
-        if (!$produto) {
-            return response()->json(['message' => 'Produto não encontrado'], 404);
+        if (!$tipo) {
+            return response()->json(['message' => 'Tipo não encontrado'], 404);
         }
 
         // Faça o update do tipo
-        $produto->update($request->all());
+        $tipo->update($request->all());
 
         // Retorne o tipo
-        return response()->json($produto);
+        return response()->json($tipo);
     }
 
     /**
@@ -72,18 +73,18 @@ class ProdutoController extends Controller
      */
     public function destroy($id)
     {
-       // Encontre um tipo pelo ID
-       $produto = Produto::find($id);
+          // Encontre um tipo pelo ID
+          $tipo = Tipo::find($id);
 
-       if (!$produto) {
-           return response()->json(['message' => 'Produto não encontrado!'], 404);
-       }  
+          if (!$tipo) {
+              return response()->json(['message' => 'Tipo não encontrado!'], 404);
+          }  
 
-       //Se tiver dependentes deve retornar erro
- 
-       // Delete the brand
-       $produto->delete();
-
-       return response()->json(['message' => 'Produto deletado com sucesso!'], 200);
+          //Se tiver dependentes deve retornar erro
+    
+          // Delete the brand
+          $tipo->delete();
+  
+          return response()->json(['message' => 'Tipo deletado com sucesso!'], 200);
     }
 }

@@ -11,23 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::disableForeignKeyConstraints();
-
         Schema::create('produtos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('detalhe_id');
-            $table->foreign('detalhe_id')->references('id')->on('detalhes_pedido');
-            $table->lineString('name');
-            $table->integer('preço');
-            $table->lineString('descrição');
+            $table->string('nome')->unique();
+            $table->text('descricao');
+            $table->double('preco');
             $table->integer('estoque');
-            $table->bigInteger('medida_id');
-            $table->foreign('medida_id')->references('id')->on('unidade_medida');
-            $table->index('name');
-            $table->index('descrição');
+            $table->unsignedBigInteger('tipo_id');
+            $table->foreign('tipo_id')->references('id')->on('tipos');
+            $table->timestamps();
         });
-
-        Schema::enableForeignKeyConstraints();
     }
 
     /**
