@@ -207,7 +207,7 @@ class MetodopagamentoTest extends TestCase
             ]);
 
         //Verifique se foi deletado do banco
-        $this->assertDatabaseMissing('metodopagamentos', ['id' => $metodopagamento->id]);
+        $this->assertDatabaseMissing('metodo_pagamentos', ['id' => $metodopagamento->id]);
     }
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\BairroController;
+use App\Http\Controllers\MetodoPagamentoController;
 use App\Http\Controllers\NotaFiscalController;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TipoController;
