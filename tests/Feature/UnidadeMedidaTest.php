@@ -111,7 +111,7 @@ class UnidadeMedidaTest extends TestCase
             ]);
 
         //Verifique se foi deletado do banco
-        $this->assertDatabaseMissing('unidade', ['id' => $unidadeMedida->id]);
+        $this->assertDatabaseMissing('unidade_medidas', ['id' => $unidadeMedida->id]);
     }
 
     /**

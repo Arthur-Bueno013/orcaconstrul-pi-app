@@ -13,9 +13,13 @@ return new class extends Migration
     {
         Schema::create('nota_fiscals', function (Blueprint $table) {
             $table->id();
-
+            $table->unsignedBigInteger('usuario_id');
+            $table->foreign('usuario_id')->references('id')->on('usuarios');
+            $table->unsignedBigInteger('pedido_id');
+            $table->foreign('pedido_id')->references('id')->on('pedidos');
+            $table->unsignedBigInteger('bairro_id');
+            $table->foreign('bairro_id')->references('id')->on('bairros');
             $table->string('chave_pagamento');
-            $table->timestamps();
         });
     }
 

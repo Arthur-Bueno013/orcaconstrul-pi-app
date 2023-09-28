@@ -1,5 +1,11 @@
 <?php
 
+use App\Http\Controllers\BairroController;
+use App\Http\Controllers\MetodoPagamentoController;
+use App\Http\Controllers\NotaFiscalController;
+use App\Http\Controllers\ProdutoController;
+use App\Http\Controllers\TipoController;
+use App\Http\Controllers\UnidadeMedidaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,6 +59,14 @@ Route::middleware('api')->prefix('unidade_medidas')->group(function () {
     Route::get('/', [UnidadeMedidaController::class, 'index']);
     Route::post('/', [UnidadeMedidaController::class, 'store']);
     Route::delete('/{unidade_medida}', [UnidadeMedidaController::class, 'destroy']);
+
+});
+
+
+Route::middleware('api')->prefix('nota_fiscals')->group(function () {
+    Route::get('/', [NotaFiscalController::class, 'index']);
+    Route::post('/', [NotaFiscalControllertroller::class, 'store']);
+    Route::delete('/{nota_fiscal', [NotaFiscalController::class, 'destroy']);
 
 });
 

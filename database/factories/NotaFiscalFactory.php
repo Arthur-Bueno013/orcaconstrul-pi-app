@@ -2,6 +2,9 @@
 
 namespace Database\Factories;
 
+use App\Models\Bairro;
+use App\Models\Pedido;
+use App\Models\Usuario;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +20,17 @@ class NotaFiscalFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'usuario_id'=> function () {
+                return Usuario::factory()->create()->id; 
+            },
+            'pedido_id'=> function () {
+                return Pedido::factory()->create()->id;         
+            },
+            'bairro_id'=> function () {
+                return Bairro::factory()->create()->id;
+            },
+            'chave_pagamento' => "". $this->faker->word." " ,
+        
         ];
     }
 }
