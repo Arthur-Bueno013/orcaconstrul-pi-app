@@ -69,11 +69,9 @@ class UnidadeMedidaTest extends TestCase
         public function testCriacaoProdutoFalha()
         {
             $data = [
-                "nome" => 'a',
-                "descricao" => 'a',
-                "preco" => '',
-                "estoque" => '',
-                "tipo_id" => ''
+                "mt" => '',
+                "kg" => '',
+                "produto_id" => ''
             ];
             // Fazer uma requisição POST
             $response = $this->postJson('/api/unidade_medidas', $data);
@@ -81,7 +79,7 @@ class UnidadeMedidaTest extends TestCase
             // Verifique se teve um retorno 422 - Falha no salvamento
             // e se a estrutura do JSON Corresponde
             $response->assertStatus(422)
-                ->assertJsonValidationErrors(['nome', 'descricao', 'preco', 'estoque', 'tipo_id']);
+                ->assertJsonValidationErrors(['mt', 'kg', 'produto_id']);
         }
     
         /**
@@ -89,23 +87,21 @@ class UnidadeMedidaTest extends TestCase
          *
          * @return void
          */
-        public function testPesquisaunidade_medidasucesso()
+        public function testPesquisaUnidadeMedidaSucesso()
         {
             // Criar um tipo
-            $produto = Produto::factory()->create();
+            $unidade_medida = UnidadeMedida::factory()->create();
     
             // Fazer pesquisa
-            $response = $this->getJson('/api/unidade_medidas/' . $produto->id);
+            $response = $this->getJson('/api/unidade_medidas/' . $unidade_medida->id);
     
             // Verificar saida
             $response->assertStatus(200)
                 ->assertJson([
-                    'id' => $produto->id,
-                    'nome' => $produto->nome,
-                    'descricao' => $produto->descricao,
-                    'preco' => $produto->preco,
-                    'estoque' => $produto->estoque,
-                    'tipo_id' => $produto->tipo_id,
+                    'id' => $unidade_medida->id,
+                    'preco' => $unidade_medida->preco,
+                    'estoque' => $unidade_medida->estoque,
+                    'produto_id' => $unidade_medida->produto_id,
                 ]);
         }
     
@@ -123,7 +119,7 @@ class UnidadeMedidaTest extends TestCase
             // Veriicar a resposta
             $response->assertStatus(404)
                 ->assertJson([
-                    'message' => 'Produto não encontrado'
+                    'message' => 'Unidade não encontrada'
                 ]);
         }
     
@@ -132,33 +128,29 @@ class UnidadeMedidaTest extends TestCase
          *
          * @return void
          */
-        public function testUpdateunidade_medidasucesso()
+        public function testUpdateUnidadeMedidaSucesso()
         {
             // Crie um produto fake
-            $produto = Produto::factory()->create();
+            $unidade_medida = UnidadeMedida::factory()->create();
     
             // Dados para update
             $newData = [
-                'nome' => 'Novo nome',
-                'descricao' => 'Novo nome',
-                'preco' => 3.55,
-                'estoque' => 5,
-                'tipo_id' => $produto->tipo->id
+                'mt' => 3.55,
+                'kg' => 5.90,
+                'produto_id' => $unidade_medida->produto->id
     
             ];
     
             // Faça uma chamada PUT
-            $response = $this->putJson('/api/unidade_medidas/' . $produto->id, $newData);
+            $response = $this->putJson('/api/unidade_medidas/' . $unidade_medida->id, $newData);
     
             // Verifique a resposta
             $response->assertStatus(200)
                 ->assertJson([
-                    'id' => $produto->id,
-                    'nome' => 'Novo nome',
-                    'descricao' => 'Novo nome',
-                    'preco' => 3.55,
-                    'estoque' => 5,
-                    'tipo_id' => $produto->tipo->id
+                    'id' => $unidade_medida->id,
+                    'mt' => 3.55,
+                    'kg' => 5.90,
+                    'produto_id' => $unidade_medida->produto->id
                 ]);
         }
     
@@ -167,26 +159,24 @@ class UnidadeMedidaTest extends TestCase
          *
          * @return void
          */
-        public function testUpdateProdutoComFalhas()
+        public function testUpdateUnidadeMedidaComFalhas()
         {
             // Crie um produto fake
-            $produto = Produto::factory()->create();
+            $unidade_medida = UnidadeMedida::factory()->create();
     
             // Dados para update      
             $invalidData = [
-                'nome' => 'a',
-                'descricao' => 'a',
-                'preco' => 'a',
-                'estoque' => 'a',
-                'tipo_id' => 0
+                "mt" => '',
+                "kg" => '',
+                "produto_id" => 0
     
             ];
             // Faça uma chamada PUT
-            $response = $this->putJson('/api/unidade_medidas/' . $produto->id, $invalidData);
+            $response = $this->putJson('/api/unidade_medidas/' . $unidade_medida->id, $invalidData);
     
             // Verificar se teve um erro 422
             $response->assertStatus(422)
-                ->assertJsonValidationErrors(['nome', 'descricao', 'preco', 'estoque', 'tipo_id']);
+                ->assertJsonValidationErrors(['mt', 'kg','produto_id']);
         }
     
         /**
@@ -194,20 +184,19 @@ class UnidadeMedidaTest extends TestCase
          *
          * @return void
          */
-        public function testUpdateProdutoNaoExistente()
+        public function testUpdateUnidadeMedidaNaoExistente()
         {
     
             // Criar um tipo usando o factory
-            $tipo = Tipo::factory()->create();
+            $produto = Produto::factory()->create();
     
     
             // Dados para update
             $newData = [ 
-                'nome' => 'Novo nome',
-                'descricao' => 'Novo nome',
-                'preco' => 3.55,
-                'estoque' => 5,
-                'tipo_id' => $tipo->id
+            
+                'mt' => 3.55,
+                'kg' => 5.90,
+                'produto_id' => $produto->id
     
             ];
             // Faça uma chamada PUT
@@ -216,7 +205,7 @@ class UnidadeMedidaTest extends TestCase
             // Verificar o retorno 404
             $response->assertStatus(404)
                 ->assertJson([
-                    'message' => 'Produto não encontrado'
+                    'message' => 'Unidade não encontrada'
                 ]);
         }
     
