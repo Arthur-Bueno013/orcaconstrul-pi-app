@@ -17,7 +17,7 @@ class BairroFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            
         ];
     }
 }

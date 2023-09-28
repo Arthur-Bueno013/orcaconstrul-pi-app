@@ -11,18 +11,22 @@ class UpdatePedidoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             //
+            'numero' => 'integer|unique:pedidos,numero,' . $this->route('pedido') . ',id|required',
+            'data' => 'required|date',
+            'status' => 'required|integer',
+            'total' => 'required|numeric',
         ];
     }
 }
