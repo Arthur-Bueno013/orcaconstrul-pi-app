@@ -11,7 +11,7 @@ class UpdateNotaFiscalRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class UpdateNotaFiscalRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'usuario_id' => 'required|exists:usuario,id',
+            'pedido_id' => 'required|exists:pedido,id',
+            'bairro_id' => 'required|exists:bairro,id',
+            'chave_pagamento' => 'min:2|required'
         ];
     }
 }
