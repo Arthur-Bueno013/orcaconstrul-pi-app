@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('unidade_medidas', function (Blueprint $table) {
             $table->id();
-            $table->double('mt');
-            $table->double('kg');
+            $table->integer('mt');
+            $table->integer('kg');
             $table->unsignedBigInteger('produto_id');
             $table->foreign('produto_id')->references('id')->on('produtos');
             $table->timestamps();

@@ -4,7 +4,7 @@
 
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\TipoController;
-
+use App\Http\Controllers\UnidadeMedidaController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -42,11 +42,9 @@ Route::middleware('api')->prefix('produtos')->group(function () {
     Route::delete('/{produto}', [ProdutoController::class, 'destroy']);
 });
 
-//Rotas Produtos
 Route::middleware('api')->prefix('unidade_medidas')->group(function () {
-    Route::get('/', [unidade_medidaController::class, 'index']);
-    Route::post('/', [unidade_medidaController::class, 'store']);
-    Route::get('/{unidade_medida}', [UnidadeMedidaController::class, 'show']);
-    Route::put('/{unidade_medida}', [UnidadeMedidaController::class, 'update']);
+    Route::get('/', [UnidadeMedidaController::class, 'index']);
+    Route::post('/', [UnidadeMedidaController::class, 'store']);
     Route::delete('/{unidade_medida}', [UnidadeMedidaController::class, 'destroy']);
+
 });
