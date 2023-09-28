@@ -42,7 +42,7 @@ class UnidadeMedidaTest extends TestCase
         $produto = Produto::factory()->create();
         //Criar o objeto
         $data = [
-            'kg' => $this->faker->randomFloat(2, 0, 1000),
+            'mt' => $this->faker->randomFloat(2, 0, 1000),
             'kg' => $this->faker->randomFloat(2, 0, 1000),
             'produto_id' => $produto->id
         ];
@@ -70,8 +70,8 @@ class UnidadeMedidaTest extends TestCase
         $produto = Produto::factory()->create();
         //Criar o objeto
         $data = [
-            'mt' => 9.0,
-            'kg' => 1.1,
+            'mt' => "",
+            'kg' => "",
             'produto_id' => 0
         ];
 
@@ -86,7 +86,7 @@ class UnidadeMedidaTest extends TestCase
         // Verifique se teve um retorno 201 - Criado com Sucesso
         // e se a estrutura do JSON Corresponde
         $response->assertStatus(422)
-            ->assertJsonValidationErrors([ 'mt','kg','produto_id']);
+            ->assertJsonValidationErrors(['mt','kg','produto_id']);
     }
 
     
@@ -129,6 +129,4 @@ class UnidadeMedidaTest extends TestCase
                 'message' => 'Unidade não encontrada!'
             ]);
     }
-
-
 }
