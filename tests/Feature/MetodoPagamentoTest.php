@@ -148,9 +148,9 @@ class MetodopagamentoTest extends TestCase
                 'message' => 'Metodopagamento não encontrado'
             ]);
     }
-    public function testUpdateMetodopagamentoMesmosDados()
+    public function testUpdateMetodoPagamentoMesmosDados()
     {
-        // Crie um metodopagamento fake
+        // Crie um tipo fake
         $metodopagamento = Metodopagamento::factory()->create();
 
         // Data para update
@@ -165,7 +165,7 @@ class MetodopagamentoTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'id' => $metodopagamento->id,
-            'descricao' => $metodopagamento->descricao,
+            'descricao' => $metodopagamento->descricao
             ]);
     }
 
