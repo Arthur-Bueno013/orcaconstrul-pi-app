@@ -21,7 +21,7 @@ Route::middleware('api')->prefix('pedidos')->group(function () {
     Route::put('/{pedido}', [PedidoController::class, 'update']);
     Route::delete('/{pedido}', [PedidoController::class, 'destroy']);
 });
-//Rotas Marketplaces
+//Rotas Marketplacesded
 Route::middleware('api')->prefix('detalhespedidos')->group(function () {
     Route::get('/', [DetalhePedidoController::class, 'index']);
     Route::post('/', [DetalhePedidoController::class, 'store']);
