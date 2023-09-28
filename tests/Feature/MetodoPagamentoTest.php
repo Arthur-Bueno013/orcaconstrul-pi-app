@@ -202,14 +202,14 @@ class MetodopagamentoTest extends TestCase
         // enviar requisição para Delete
         $response = $this->deleteJson('/api/metodopagamentos/' . $metodopagamento->id);
 
-        // Verifica o Detele
+        // Verifica o Delete
         $response->assertStatus(200)
             ->assertJson([
                 'message' => 'Metodo de Pagamento deletado com sucesso!'
             ]);
 
         //Verifique se foi deletado do banco
-        $this->assertDatabaseMissing('metodopagamentos', ['id' => $metodopagamento->id]);
+        $this->assertDatabaseMissing('metodo_pagamentos', ['id' => $metodopagamento->id]);
     }
 
     /**
