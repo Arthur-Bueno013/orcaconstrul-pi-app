@@ -22,7 +22,7 @@ class UpdateMetodoPagamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'descricao' => 'min:1|unique:nota_fiscals,descricao,' . $this->route('metodo_pagamento') . ',id|required',
+            'descricao' => 'min:1|unique:metodo_pagamentos,descricao,' . $this->route('metodopagamento') . ',id|required',
 
         ];
     }

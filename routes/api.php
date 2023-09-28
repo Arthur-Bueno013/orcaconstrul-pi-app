@@ -55,3 +55,4 @@ Route::middleware('api')->prefix('unidade_medidas')->group(function () {
     Route::delete('/{unidade_medida}', [UnidadeMedidaController::class, 'destroy']);
 
 });
+

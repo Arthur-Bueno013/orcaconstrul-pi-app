@@ -14,7 +14,7 @@ class MetodoPagamentoController extends Controller
     public function index()
     {
         //Pegar a lista do banco
-        $metodopagamentos = Metodopagamento::all();
+        $metodopagamentos = MetodoPagamento::all();
 
         //Retornar lista em formato json
         return response()->json(['data' => $metodopagamentos]);
@@ -26,7 +26,7 @@ class MetodoPagamentoController extends Controller
     public function store(StoreMetodopagamentoRequest $request)
     {
         // Crie um novo Tipo
-        $metodopagamento = Metodopagamento::create($request->all());
+        $metodopagamento = MetodoPagamento::create($request->all());
 
         // Retorne o codigo 201
         return response()->json($metodopagamento, 201);
@@ -38,7 +38,7 @@ class MetodoPagamentoController extends Controller
     public function show($id)
     {
         // procure tipo por id
-        $metodopagamento = Metodopagamento::find($id);
+        $metodopagamento = MetodoPagamento::find($id);
 
         if (!$metodopagamento) {
             return response()->json(['message' => 'Metodopagamento não encontrado'], 404);
@@ -54,7 +54,7 @@ class MetodoPagamentoController extends Controller
     public function update(UpdateMetodopagamentoRequest $request, $id)
     {
         // Procure o tipo pela id
-        $metodopagamento = Metodopagamento::find($id);
+        $metodopagamento = MetodoPagamento::find($id);
 
         if (!$metodopagamento) {
             return response()->json(['message' => 'Metodopagamento não encontrado'], 404);
@@ -73,17 +73,17 @@ class MetodoPagamentoController extends Controller
     public function destroy($id)
     {
        // Encontre um tipo pelo ID
-       $metodopagamento = Metodopagamento::find($id);
+       $metodopagamento = MetodoPagamento::find($id);
 
        if (!$metodopagamento) {
            return response()->json(['message' => 'Metodopagamento não encontrado!'], 404);
        }  
 
-       //Se tiver dependentes deve retornar erro
+       //Se tiver dependentes deve retornar erro   
  
        // Delete the brand
        $metodopagamento->delete();
 
-       return response()->json(['message' => 'Metodopagamento deletado com sucesso!'], 200);
+       return response()->json(['message' => 'Metodo de Pagamento deletado com sucesso!'], 200);
     }
 }
