@@ -100,9 +100,11 @@ class MetodopagamentoTest extends TestCase
         // Crie um metodopagamento fake
         $metodopagamento = Metodopagamento::factory()->create();
 
+        $text = "Metodo de pagamento";
+
         // Dados para update
         $newData = [
-            'descricao' => 'Metodopagamento Descricao',
+            'descricao' => $text,
 
         ];
         // Faça uma chamada PUT
@@ -111,7 +113,7 @@ class MetodopagamentoTest extends TestCase
         $response->assertStatus(200)
             ->assertJson([
                 'id' => $metodopagamento->id,
-                'descricao' => 'Metodopagamento Descricao',
+                'descricao' => $text,
             ]);
     }
     public function testUpdateMetodopagamentoDataInvalida()
@@ -203,7 +205,7 @@ class MetodopagamentoTest extends TestCase
         // Verifica o Detele
         $response->assertStatus(200)
             ->assertJson([
-                'message' => 'Metodopagamento deletado com sucesso!'
+                'message' => 'Metodo de Pagamento deletado com sucesso!'
             ]);
 
         //Verifique se foi deletado do banco

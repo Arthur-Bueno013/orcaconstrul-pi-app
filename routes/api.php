@@ -30,3 +30,5 @@ Route::middleware('api')->prefix('metodopagamentos')->group(function () {
     Route::delete('/{metodopagamento}', [MetodoPagamentoController::class, 'destroy']);
 });
 
+
+
