@@ -9,4 +9,6 @@ class MetodoPagamento extends Model
 {
     use HasFactory;
     protected $fillable = ['descricao'];
+
+  
 }

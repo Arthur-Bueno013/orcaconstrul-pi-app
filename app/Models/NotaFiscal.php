@@ -9,5 +9,7 @@ class NotaFiscal extends Model
 {
     use HasFactory;
 
+
     protected $fillable = ['usuario_id','pedido_id','bairro_id','chave_pagamento'];
+
 }
