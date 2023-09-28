@@ -11,7 +11,7 @@ class UpdateBairroRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,7 @@ class UpdateBairroRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "nome" =>  'min:2|unique:bairros,nome,' . $this->route('bairro') . ',id|required',
         ];
     }
 }
