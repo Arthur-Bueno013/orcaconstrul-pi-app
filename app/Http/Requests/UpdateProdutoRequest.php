@@ -11,18 +11,23 @@ class UpdateProdutoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            //
+
+            "nome" =>  'min:2|unique:produtos,nome,' . $this->route('produto') . ',id|required',
+            "descricao" => 'min:2|required',
+            "preco" => 'numeric|required',
+            "estoque" => 'numeric|required',
+            "tipo_id" => 'required|exists:tipos,id',
         ];
     }
 }

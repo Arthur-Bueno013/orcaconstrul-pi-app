@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateUnidadeMedidaRequest extends FormRequest
+class UpdateTipoRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -17,14 +17,12 @@ class UpdateUnidadeMedidaRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
-            "mt" =>  'min:0|numeric|required',
-            "kg" => 'min:0|numeric|required',
-            "produto_id" => 'required|exists:produtos,id',
+            'descricao' => 'min:2|unique:produtos,nome,' . $this->route('tipo') . ',id|required',
         ];
     }
 }
