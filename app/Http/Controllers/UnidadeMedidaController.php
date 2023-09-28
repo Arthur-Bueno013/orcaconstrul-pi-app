@@ -50,6 +50,6 @@ class UnidadeMedidaController extends Controller
             // Delete the brand
             $unidadeMedida->delete();
     
-            return response()->json(['message' => 'Avaliação deletada com sucesso!'], 200);
+            return response()->json(['message' => 'Unidade deletada com sucesso!'], 200);
         }
     }

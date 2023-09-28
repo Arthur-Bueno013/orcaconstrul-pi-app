@@ -22,8 +22,8 @@ class UpdateUnidadeMedidaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "mt" =>  'min:0|max:10|numeric|required',
-            "kg" => 'min:0|max:10|numeric|required',
+            "mt" =>  'min:0|numeric|required',
+            "kg" => 'min:0|numeric|required',
             "produto_id" => 'required|exists:produtos,id',
         ];
     }
