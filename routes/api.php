@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
 Route::middleware('api')->prefix('bairros')->group(function () {
     Route::get('/', [BairroController::class, 'index']);
     Route::post('/', [BairroController::class, 'store']);
@@ -29,4 +30,5 @@ Route::middleware('api')->prefix('metodopagamentos')->group(function () {
     Route::put('/{metodopagamento}', [MetodoPagamentoController::class, 'update']);
     Route::delete('/{metodopagamento}', [MetodoPagamentoController::class, 'destroy']);
 });
+
 
