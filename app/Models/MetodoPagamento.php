@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class MetodoPagamento extends Model
 {
     use HasFactory;
-    protected $fillable = ['cartão, pix, boleto '];
+    protected $fillable = ['descricao'];
 }

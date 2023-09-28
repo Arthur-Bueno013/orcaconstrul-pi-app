@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('nota_fiscals', function (Blueprint $table) {
             $table->id();
+
+            $table->string('chave_pagamento');
             $table->timestamps();
         });
     }

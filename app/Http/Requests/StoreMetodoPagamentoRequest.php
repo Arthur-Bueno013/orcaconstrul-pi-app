@@ -22,9 +22,8 @@ class StoreMetodoPagamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'cartao' => 'min:2|required',
-            'pix' => 'min:2|required',
-            'boleto' => 'min:2|required',
+            'descricao' => 'required|min:1|unique:metodo_pagamentos,descricao'
+            
         ];
     }
 }
