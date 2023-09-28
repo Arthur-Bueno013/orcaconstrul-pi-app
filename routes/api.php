@@ -18,8 +18,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::middleware('api')->prefix('bairros')->group(function () {
+    Route::get('/', [BairroController::class, 'index']);
+    Route::post('/', [BairroController::class, 'store']);
+    Route::get('/{bairro}', [BairroController::class, 'show']);
+    Route::put('/{bairro}', [BairroController::class, 'update']);
+    Route::delete('/{bairro}', [BairroController::class, 'destroy']);
+});
+Route::middleware('api')->prefix('metodopagamentos')->group(function () {
+    Route::get('/', [MetodoPagamentoController::class, 'index']);
+    Route::post('/', [MetodoPagamentoController::class, 'store']);
+    Route::get('/{metodopagamento}', [MetodoPagamentoController::class, 'show']);
+    Route::put('/{metodopagamento}', [MetodoPagamentoController::class, 'update']);
+    Route::delete('/{metodopagamento}', [MetodoPagamentoController::class, 'destroy']);
 });
 
 
