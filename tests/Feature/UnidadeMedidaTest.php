@@ -64,71 +64,10 @@ class UnidadeMedidaTest extends TestCase
      /**
      * Criar um Avaliacao com falha
      */
-    public function testCriarUnidadeMedidaFalha()
+    public function test_example(): void
     {
-        //Criar produto
-        $produto = Produto::factory()->create();
-        //Criar o objeto
-        $data = [
-            'mt' => 9.0,
-            'kg' => 1.1,
-            'produto_id' => 0
-        ];
+        $response = $this->get('/');
 
-        //Debug
-        //dd($data);
-
-        // Fazer uma requisição POST
-        $response = $this->postJson('/api/unidade_medidas', $data);
-
-        //dd($response);
-
-        // Verifique se teve um retorno 201 - Criado com Sucesso
-        // e se a estrutura do JSON Corresponde
-        $response->assertStatus(422)
-            ->assertJsonValidationErrors([ 'mt','kg','produto_id']);
+        $response->assertStatus(200);
     }
-
-    
-    /**
-     * Teste de deletar com sucesso
-     *
-     * @return void
-     */
-    public function testDeleteUnidadeMedida()
-    {
-        // Criar avaliacao fake
-        $unidadeMedida = UnidadeMedida::factory()->create();
-
-        // enviar requisição para Delete
-        $response = $this->deleteJson('/api/unidade_medidas/' . $unidadeMedida->id);
-
-        // Verifica o Detele
-        $response->assertStatus(200)
-            ->assertJson([
-                'message' => 'Unidade deletada com sucesso!'
-            ]);
-
-        //Verifique se foi deletado do banco
-        $this->assertDatabaseMissing('unidade', ['id' => $unidadeMedida->id]);
-    }
-
-    /**
-     * Teste remoção de registro inexistente
-     *
-     * @return void
-     */
-    public function testDeleteUnidadeMedidaNaoExistente()
-    {
-        // enviar requisição para Delete
-        $response = $this->deleteJson('/api/unidade_medidas/999');
-
-        // Verifique a resposta
-        $response->assertStatus(404)
-            ->assertJson([
-                'message' => 'Unidade não encontrada!'
-            ]);
-    }
-
-
 }

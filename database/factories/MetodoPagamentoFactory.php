@@ -17,7 +17,8 @@ class MetodoPagamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'descricao' =>$this->faker->word(),
+
         ];
     }
 }
