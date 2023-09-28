@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Bairro extends Model
 {
     use HasFactory;
+    protected $fillable = ['nome'];
 }
+
+
