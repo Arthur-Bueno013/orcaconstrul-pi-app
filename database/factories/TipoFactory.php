@@ -5,9 +5,9 @@ namespace Database\Factories;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\MetodoPagamento>
+ * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Tipo>
  */
-class MetodoPagamentoFactory extends Factory
+class TipoFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -17,8 +17,9 @@ class MetodoPagamentoFactory extends Factory
     public function definition(): array
     {
         return [
-            'descricao' =>$this->faker->word(),
-
+            //
+            'descricao' =>"". $this->faker->word." " .
+            $this->faker->numberBetween($int1 = 0, $int2 = 99999),
         ];
     }
 }

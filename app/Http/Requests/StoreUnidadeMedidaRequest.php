@@ -11,7 +11,7 @@ class StoreUnidadeMedidaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreUnidadeMedidaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            "mt" =>  'min:0|numeric|required',
+            "kg" => 'min:0|numeric|required',
+            'produto_id' => 'required|exists:produtos,id',
         ];
     }
 }

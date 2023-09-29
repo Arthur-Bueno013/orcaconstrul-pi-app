@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
+
     use HasApiTokens, HasFactory, Notifiable;
 
     /**
@@ -39,4 +40,5 @@ class Usuario extends Model
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
 }

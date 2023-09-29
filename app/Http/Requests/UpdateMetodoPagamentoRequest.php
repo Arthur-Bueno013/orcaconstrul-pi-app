@@ -11,7 +11,7 @@ class UpdateMetodoPagamentoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateMetodoPagamentoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'descricao' => 'min:1|unique:metodo_pagamentos,descricao,' . $this->route('metodopagamento') . ',id|required',
+
         ];
     }
 }

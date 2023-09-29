@@ -13,54 +13,77 @@ class MetodoPagamentoController extends Controller
      */
     public function index()
     {
-        //
-    }
+        //Pegar a lista do banco
+        $metodopagamentos = MetodoPagamento::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        //Retornar lista em formato json
+        return response()->json(['data' => $metodopagamentos]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreMetodoPagamentoRequest $request)
+    public function store(StoreMetodopagamentoRequest $request)
     {
-        //
+        // Crie um novo Tipo
+        $metodopagamento = MetodoPagamento::create($request->all());
+
+        // Retorne o codigo 201
+        return response()->json($metodopagamento, 201);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(MetodoPagamento $metodoPagamento)
+    public function show($id)
     {
-        //
+        // procure tipo por id
+        $metodopagamento = MetodoPagamento::find($id);
+
+        if (!$metodopagamento) {
+            return response()->json(['message' => 'Metodopagamento não encontrado'], 404);
+        }
+
+        return response()->json($metodopagamento);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(MetodoPagamento $metodoPagamento)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateMetodoPagamentoRequest $request, MetodoPagamento $metodoPagamento)
+    public function update(UpdateMetodopagamentoRequest $request, $id)
     {
-        //
+        // Procure o tipo pela id
+        $metodopagamento = MetodoPagamento::find($id);
+
+        if (!$metodopagamento) {
+            return response()->json(['message' => 'Metodopagamento não encontrado'], 404);
+        }
+
+        // Faça o update do tipo
+        $metodopagamento->update($request->all());
+
+        // Retorne o tipo
+        return response()->json($metodopagamento);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(MetodoPagamento $metodoPagamento)
+    public function destroy($id)
     {
-        //
+       // Encontre um tipo pelo ID
+       $metodopagamento = MetodoPagamento::find($id);
+
+       if (!$metodopagamento) {
+           return response()->json(['message' => 'Metodopagamento não encontrado!'], 404);
+       }  
+
+       //Se tiver dependentes deve retornar erro   
+ 
+       // Delete the brand
+       $metodopagamento->delete();
+
+       return response()->json(['message' => 'Metodo de Pagamento deletado com sucesso!'], 200);
     }
 }

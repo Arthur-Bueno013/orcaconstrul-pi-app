@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Produto;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -18,6 +19,13 @@ class UnidadeMedidaFactory extends Factory
     {
         return [
             //
+            'mt' => $this->faker->randomFloat(2, 10, 1000),
+            'kg' => $this->faker->randomFloat(2, 10, 1000),
+            'produto_id' => function () {
+                return Produto::factory()->create()->id;
+            }
+
+
         ];
     }
 }

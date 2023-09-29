@@ -301,6 +301,7 @@ class PedidoTest extends TestCase
      *
      * @return void
      */
+
     public function testDeletePedidoNaoExistente()
     {
         // enviar requisição para Delete
@@ -312,4 +313,5 @@ class PedidoTest extends TestCase
                 'message' => 'Pedido não encontrado!'
             ]);
     }
+
 }

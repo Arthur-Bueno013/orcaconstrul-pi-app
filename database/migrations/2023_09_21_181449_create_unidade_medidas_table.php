@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('produtos', function (Blueprint $table) {
+        Schema::create('unidade_medidas', function (Blueprint $table) {
             $table->id();
-            $table->string('nome')->unique();
-            $table->text('descricao');
-            $table->double('preco');
-            $table->integer('estoque');
-            $table->unsignedBigInteger('tipo_id');
-            $table->foreign('tipo_id')->references('id')->on('tipos');
+            $table->integer('mt');
+            $table->integer('kg');
+            $table->unsignedBigInteger('produto_id');
+            $table->foreign('produto_id')->references('id')->on('produtos');
             $table->timestamps();
         });
     }
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('produtos');
+        Schema::dropIfExists('unidade_medidas');
     }
 };

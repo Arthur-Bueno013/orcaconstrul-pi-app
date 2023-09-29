@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('unidade_medidas', function (Blueprint $table) {
+        Schema::create('tipos', function (Blueprint $table) {
             $table->id();
+            $table->string('descricao',50)->unique();
             $table->timestamps();
         });
     }
@@ -22,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('unidade_medidas');
+        Schema::dropIfExists('tipos');
     }
 };
