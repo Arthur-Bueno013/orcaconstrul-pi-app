@@ -11,18 +11,24 @@ class StoreDetalhePedidoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
     {
         return [
             //
+            'pedido_id' => 'required|exists:pedidos,id',
+            'bairro_id' => 'reuired|exists:bairros,id',
+            'produto_id' => 'required|exists:produtos,id',
+            'quantidade' => 'required|integer|min:0',
+            'preco' => 'required|numeric|min:0',
+            'total' => 'required|numeric|min:0'
         ];
     }
 }
