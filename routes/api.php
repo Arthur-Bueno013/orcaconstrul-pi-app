@@ -62,9 +62,11 @@ Route::middleware('api')->prefix('unidade_medidas')->group(function () {
 
 });
 
+
 Route::middleware('api')->prefix('nota_fiscals')->group(function () {
     Route::get('/', [NotaFiscalController::class, 'index']);
     Route::post('/', [NotaFiscalControllertroller::class, 'store']);
     Route::delete('/{nota_fiscal', [NotaFiscalController::class, 'destroy']);
 
 });
+
