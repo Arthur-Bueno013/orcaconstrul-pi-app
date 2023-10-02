@@ -123,7 +123,7 @@ class NotaFiscalTest extends TestCase
     public function testDeleteUnidadeMedidaNaoExistente()
     {
         // enviar requisição para Delete
-        $response = $this->deleteJson('/api/unidade_medidas/999');
+        $response = $this->deleteJson('/api/nota_ficals/999');
 
         // Verifique a resposta
         $response->assertStatus(404)
