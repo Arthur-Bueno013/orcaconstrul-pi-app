@@ -100,4 +100,3 @@ Route::middleware('api')->prefix('nota_fiscals')->group(function () {
     Route::delete('/{nota_fiscal', [NotaFiscalController::class, 'destroy']);
 
 });
-

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use App\Http\Requests\StorePedidoRequest;
 use App\Http\Requests\UpdatePedidoRequest;
+use App\Models\DetalhePedido;
 
 class PedidoController extends Controller
 {
@@ -13,10 +14,8 @@ class PedidoController extends Controller
      */
     public function index()
     {
-        //Pegar a lista do banco
-        $pedidos = Pedido::all();
+        $pedidos = Pedido::with('detalhesPedido')->get();
 
-        //Retornar lista em formato json
         return response()->json(['data' => $pedidos]);
     }
 
@@ -26,10 +25,23 @@ class PedidoController extends Controller
      */
     public function store(StorePedidoRequest $request)
     {
-        // Crie um novo Tipo
-        $pedido = Pedido::create($request->all());
+        $pedidoData = $request->only(['numero', 'data', 'status', 'total']);
+        $detalhesPedidoData = $request->input('detalhes_pedido');
 
-        // Retorne o codigo 201
+        $pedido = Pedido::create($pedidoData);
+
+        foreach ($detalhesPedidoData as $detalheData) {
+            DetalhePedido::create([
+                'pedido_id' => $pedido->id,
+                'bairro_id' => $detalheData['bairro_id'],
+                'produto_id' => $detalheData['produto_id'],
+                'quantidade' => $detalheData['quantidade'],
+                'preco' => $detalheData['preco'],
+                'total' => $detalheData['total'],
+            ]);
+        }
+        // Retorna o pedido com os detalhes do pedido
+        $pedido->load('detalhesPedido'); // Certifique-se de que a relação esteja definida no modelo Pedido
         return response()->json($pedido, 201);
     }
 
@@ -38,14 +50,13 @@ class PedidoController extends Controller
      */
     public function show($id)
     {
-              // procure Pedido por id
-              $pedido = Pedido::find($id);
+        $pedido = Pedido::with('detalhesPedido')->find($id);
 
-              if (!$pedido) {
-                  return response()->json(['message' => 'Pedido não encontrado'], 404);
-              }
-      
-              return response()->json($pedido);
+        if (!$pedido) {
+            return response()->json(['message' => 'Pedido não encontrado'], 404);
+        }
+
+        return response()->json($pedido, 200);
     }
 
     /**
@@ -53,37 +64,65 @@ class PedidoController extends Controller
      */
     public function update(UpdatePedidoRequest $request, $id)
     {
-        // Procure o Pedido pela id
+        // Verifique se o pedido existe antes de continuar
         $pedido = Pedido::find($id);
 
         if (!$pedido) {
             return response()->json(['message' => 'Pedido não encontrado'], 404);
         }
 
-        // Faça o update do tipo
-        $pedido->update($request->all());
+        // Atualize os campos do pedido
+        $pedido->update($request->only(['numero', 'data', 'status', 'total']));
 
-        // Retorne o tipo
+        // Atualize ou crie detalhes do pedido com base nos dados enviados
+        foreach ($request->input('detalhes_pedido') as $detalheData) {
+            // Verifique se a chave 'id' está presente no array $detalheData antes de usá-la
+            $detalheId = isset($detalheData['id']) ? $detalheData['id'] : null;
+
+            $pedido->detalhesPedido()->updateOrCreate(
+                ['id' => $detalheId], // Use o ID se estiver presente
+                [
+                    'pedido_id' => $pedido->id,
+                    'bairro_id' => $detalheData['bairro_id'],
+                    'produto_id' => $detalheData['produto_id'],
+                    'quantidade' => $detalheData['quantidade'],
+                    'preco' => $detalheData['preco'],
+                    'total' => $detalheData['total'],
+                ]
+            );
+        }
+
+        // Carregue os detalhes do pedido após a atualização
+        $pedido->load('detalhesPedido');
+
         return response()->json($pedido);
     }
+
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)
     {
-         // Encontre um Pedido pelo ID
-         $pedido = Pedido::find($id);
+        $pedido = Pedido::find($id);
 
-         if (!$pedido) {
-             return response()->json(['message' => 'Pedido não encontrado!'], 404);
-         }  
+        if (!$pedido) {
+            return response()->json(['message' => 'Pedido não encontrado!'], 404);
+        }
 
-         //Se tiver dependentes deve retornar erro
-   
-         // Delete the brand
-         $pedido->delete();
- 
-         return response()->json(['message' => 'Pedido deletado com sucesso!'], 200);
+        // Tente excluir os detalhes do pedido
+        $deletedDetalhes = DetalhePedido::where('pedido_id', $pedido->id)->delete();
+
+        // Verifique se os detalhes do pedido foram excluídos com sucesso
+        if ($deletedDetalhes === false) {
+            return response()->json(['message' => 'Falha ao excluir detalhes do pedido.'], 500);
+        }
+
+        // Tente excluir o pedido
+        if ($pedido->delete()) {
+            return response()->json(['message' => 'Pedido deletado com sucesso!'], 200);
+        } else {
+            return response()->json(['message' => 'Falha ao excluir o pedido.'], 500);
+        }
     }
 }

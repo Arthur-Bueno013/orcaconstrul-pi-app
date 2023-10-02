@@ -22,9 +22,7 @@ class StoreUnidadeMedidaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "mt" =>  'min:0|numeric|required',
-            "kg" => 'min:0|numeric|required',
-            'produto_id' => 'required|exists:produtos,id',
+            "descricao" =>  'min:1|unique:unidade_medidas,descricao|required',
         ];
     }
 }

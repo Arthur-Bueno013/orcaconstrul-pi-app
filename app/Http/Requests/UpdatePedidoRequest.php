@@ -27,6 +27,12 @@ class UpdatePedidoRequest extends FormRequest
             'data' => 'required|date',
             'status' => 'required|integer',
             'total' => 'required|numeric',
+            'detalhes_pedido.*.pedido_id' => 'required|exists:pedidos,id',
+            'detalhes_pedido.*.produto_id' => 'required|exists:produtos,id',
+            'detalhes_pedido.*.bairro_id' =>  'required|exists:bairros,id',
+            'detalhes_pedido.*.quantidade' => 'required|integer|min:1',
+            'detalhes_pedido.*.preco' => 'required|numeric',
+            'detalhes_pedido.*.total' => 'required|numeric',
         ];
     }
 }

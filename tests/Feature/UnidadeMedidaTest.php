@@ -27,7 +27,7 @@ class UnidadeMedidaTest extends TestCase
             ->assertJsonCount(5, 'data')
             ->assertJsonStructure([
                 'data' => [
-                    '*' => ['id', 'mt','kg','produto_id', 'created_at', 'updated_at']
+                    '*' => ['id', 'descricao', 'created_at', 'updated_at']
                 ]
             ]);
     }
@@ -38,13 +38,10 @@ class UnidadeMedidaTest extends TestCase
     public function testCriarUnidadeMedidaSucesso()
     {
 
-        //Criar produto
-        $produto = Produto::factory()->create();
+
         //Criar o objeto
         $data = [
-            'mt' => $this->faker->randomFloat(2, 0, 1000),
-            'kg' => $this->faker->randomFloat(2, 0, 1000),
-            'produto_id' => $produto->id
+            'descricao' => $this->faker->unique()->word(),
         ];
 
         //Debug
@@ -58,22 +55,20 @@ class UnidadeMedidaTest extends TestCase
         // Verifique se teve um retorno 201 - Criado com Sucesso
         // e se a estrutura do JSON Corresponde
         $response->assertStatus(201)
-            ->assertJsonStructure(['id', 'mt','kg','produto_id', 'created_at', 'updated_at']);
+            ->assertJsonStructure(['id', 'descricao', 'created_at', 'updated_at']);
     }
 
 
-     /**
+    /**
      * Criar um Avaliacao com falha
      */
     public function testCriarUnidadeMedidaFalha()
     {
-        //Criar produto
-        $produto = Produto::factory()->create();
+
+
         //Criar o objeto
         $data = [
-            'mt' => "",
-            'kg' => "",
-            'produto_id' => 0
+            'descricao' => "",
         ];
 
         //Debug
@@ -87,10 +82,10 @@ class UnidadeMedidaTest extends TestCase
         // Verifique se teve um retorno 201 - Criado com Sucesso
         // e se a estrutura do JSON Corresponde
         $response->assertStatus(422)
-            ->assertJsonValidationErrors(['mt','kg','produto_id']);
+            ->assertJsonValidationErrors(['descricao']);
     }
 
-    
+
     /**
      * Teste de deletar com sucesso
      *
@@ -131,4 +126,3 @@ class UnidadeMedidaTest extends TestCase
             ]);
     }
 }
-
